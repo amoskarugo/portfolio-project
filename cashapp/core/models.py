@@ -82,8 +82,12 @@ class Transaction(models.Model):
     ]
     DESCRIPTION = [
         ('T', 'Transfer'),
-        ('D', 'Deposit'),
-        ('W', 'Withdraw')
+        ('BD', 'Bank Deposit'),
+        ('BW', 'Withdraw to Bank'),
+        ('WM', 'Withdraw to mobile wallet'),
+        ('MD', 'Merchant Deposit'),
+        ('MW', 'Merchant withdraw'),
+        ('MD', 'Mobile wallet deposit')
     ]
     transaction_id = models.CharField(primary_key=True, max_length=255)
     from_account = models.BigIntegerField(null=False, default=0)

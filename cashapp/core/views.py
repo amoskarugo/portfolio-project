@@ -30,6 +30,7 @@ class LoginView(APIView):
 
 class UserRegistrationApiView(APIView):
     permission_classes = (AllowAny,)
+
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -76,3 +77,61 @@ class AccountTransferApiView(APIView):
         submit_transaction.is_valid(raise_exception=True)
         submit_transaction.save()
         return Response(submit_transaction.data)
+
+
+@permission_classes([IsAuthenticated])
+class AccountDeposit(APIView):
+    def post(self, request):
+        deposit_amount = request.data['amount']
+        from_ = request.data['from_']
+        desc = request.data['description']
+        account = Account.objects.get(account_holder=request.user.id)
+        account.account_balance = account.account_balance + deposit_amount
+        account.save()
+        data = transaction(from_, request.user.id, desc, deposit_amount)
+        return Response({'message': "Deposit successful", 'data': data}, status=status.HTTP_201_CREATED)
+
+
+@permission_classes([IsAuthenticated])
+class MerchantDeposit(APIView):
+    def post(self, request):
+        pass
+
+
+@permission_classes([IsAuthenticated])
+class Withdraw(APIView):
+    def post(self, request):
+        amount = request.data['amount']
+        to_account = request.data['to']
+        desc = request.data['description']
+        account = Account.objects.get(account_holder=request.user.id)
+        if account.account_balance < amount:
+            return Response({'message': 'insufficient balance!'})
+
+        account.account_balance = account.account_balance - amount
+        account.save()
+        data = transaction(request.user.id, to_account, desc, amount)
+        return Response({'message': 'Withdrawal successful!', 'data': data})
+
+
+def transaction(from_, account, description, amount):
+    data = {
+        'transaction_id': str(uuid.uuid4()),
+        'from_account': from_,
+        'to_account': account,
+        'amount': amount,
+        'description': description,
+        'status': 'CO'
+    }
+    create_transaction = TransactionSerializer(data=data)
+    create_transaction.is_valid(raise_exception=True)
+    create_transaction.save()
+    return create_transaction.data
+
+
+@permission_classes([IsAuthenticated])
+class AccountBalance(APIView):
+    def get(self, request):
+        account = Account.objects.get(account_holder=request.user.id)
+        balance = account.account_balance
+        return Response({'balance': balance})
