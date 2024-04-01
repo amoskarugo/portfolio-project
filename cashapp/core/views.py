@@ -13,19 +13,38 @@ User = get_user_model()
 
 
 # Create your views here.
+
+@permission_classes([IsAuthenticated])
 class LoginView(APIView):
-    permission_classes = (AllowAny,)
-    serializer_class = LoginSerializer
+    # permission_classes = (AllowAny,)
+    # serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = LoginSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
-        serializer = LoginSerializer(user)
-        token = RefreshToken.for_user(user)
-        data = serializer.data
-        data["tokens"] = {"refresh": str(token), "access": str(token.access_token)}
-        return Response(data, status=status.HTTP_200_OK)
+        # serializer = LoginSerializer(data=request.data)
+        # serializer.is_valid(raise_exception=True)
+        # user = serializer.validated_data
+        # serializer = LoginSerializer(user)
+        # token = RefreshToken.for_user(user)
+        # data = serializer.data
+        # data["tokens"] = {"refresh": str(token), "access": str(token.access_token)}
+        return Response({"message": "success"}, status=status.HTTP_200_OK)
+
+
+class LogoutView(APIView):
+    """
+    An endpoint to logout users.
+    """
+
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserRegistrationApiView(APIView):
@@ -85,7 +104,8 @@ class AccountDeposit(APIView):
         deposit_amount = request.data['amount']
         from_ = request.data['from_']
         desc = request.data['description']
-        account = Account.objects.get(account_holder=request.user.id)
+        currency = request.data['currency']
+        account = Account.objects.get(account_holder=request.user.id, currency=currency)
         account.account_balance = account.account_balance + deposit_amount
         account.save()
         data = transaction(from_, request.user.id, desc, deposit_amount)

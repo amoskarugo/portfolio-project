@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DatabaseToolSources">
-    <data-source name="localhost" uuid="467481c9-5c05-4469-a24a-3221af2d9ded" type="MYSQL">
-      <base-info connect-type="DB_DEFAULT" />
+    <data-source name="localhost" uuid="7a7f53d6-79c7-4db3-a4be-767d1070ebdf" type="MYSQL">
+      <base-info connect-type="DB_DEFAULT" product="MySQL" version="8.0.35-0ubuntu0.23.04.1" jdbc-name="MySQL Connector/J" jdbc-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" />
       <user-name>root</user-name>
-      <url>jdbc:mysql://localhost:3306/myapp?serverTimezone=Africa/Nairobi</url>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema">
+            <name qname="app_db" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+      <url>jdbc:mysql://localhost:3306/app_db?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi?serverTimezone=Africa/Nairobi</url>
       <remarks />
       <vm-options />
       <driver-info id="mysql8" />
